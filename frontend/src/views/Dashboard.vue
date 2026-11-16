@@ -120,26 +120,34 @@ onMounted(async () => {
 <style scoped>
 .page {
   width: 100%;
+  background: transparent;
+  padding: 0;
 }
 .stat {
   background: #fff;
-  border: 1px solid #e6e6e6;
-  border-radius: 8px;
-  padding: 20px;
-  text-align: center;
+  border: 1px solid #e9eef6;
+  border-left: 3px solid #3d8bfd;
+  border-radius: 4px;
+  padding: 16px 18px;
+  box-shadow: 0 1px 3px rgba(28, 43, 66, 0.04);
+  transition: box-shadow 0.2s;
+}
+.stat:hover {
+  box-shadow: 0 3px 10px rgba(28, 43, 66, 0.09);
 }
 .num {
-  font-size: 32px;
-  font-weight: bold;
-  color: #303133;
+  font-size: 26px;
+  font-weight: 600;
+  color: #2c3444;
+  line-height: 1.25;
 }
 .num.danger {
   color: #f56c6c;
 }
 .label {
-  margin-top: 6px;
-  color: #909399;
-  font-size: 13px;
+  margin-top: 4px;
+  color: #8a94a6;
+  font-size: 12.5px;
 }
 .mt {
   margin-top: 16px;

@@ -1,23 +1,31 @@
 <template>
   <div class="page">
-    <div class="toolbar">
+    <div class="toolbar actions">
+      <el-button type="success" :icon="Plus" @click="openAdd">新增图书</el-button>
+      <el-button type="success" plain :icon="Upload" @click="importVisible = true">批量导入</el-button>
+      <el-button type="warning" :icon="Download" :loading="exporting" @click="exportBooks">
+        导出 Excel
+      </el-button>
+      <el-button plain :icon="Delete" @click="openRecycleBin">回收站</el-button>
+    </div>
+
+    <div class="toolbar filters">
+      <span class="filter-label">关键字</span>
       <el-input
         v-model="keyword"
-        placeholder="按书名 / 作者 / ISBN / 分类 / 标签等搜索"
+        placeholder="书名 / 作者 / ISBN / 分类 / 标签"
         clearable
-        style="width: 320px"
+        style="width: 300px"
         @keyup.enter="search"
         @clear="search"
       />
-      <el-button type="primary" @click="search">搜索</el-button>
-      <el-button type="success" @click="openAdd">新增图书</el-button>
-      <el-button @click="exportBooks" :loading="exporting">导出 Excel</el-button>
-      <el-button @click="importVisible = true">批量导入</el-button>
+      <el-button type="primary" :icon="Search" @click="search">查询</el-button>
+      <el-button type="danger" plain :icon="RefreshLeft" @click="resetSearch">重置</el-button>
+      <div class="flex-1"></div>
+      <el-button plain :disabled="!selection.length" @click="openBatchCategory">批量改分类</el-button>
       <el-button type="danger" plain :disabled="!selection.length" @click="batchRemove">
         批量删除{{ selection.length ? `（${selection.length}）` : '' }}
       </el-button>
-      <el-button plain :disabled="!selection.length" @click="openBatchCategory">批量改分类</el-button>
-      <el-button @click="openRecycleBin">回收站</el-button>
     </div>
 
     <el-table
@@ -326,6 +334,7 @@
 <script setup>
 import { ref, reactive, computed, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import { Plus, Upload, Download, Delete, Search, RefreshLeft } from '@element-plus/icons-vue'
 import request from '@/api/request'
 
 // 展开行详情字段：[字段名, 显示名]
@@ -388,6 +397,11 @@ const loadCategories = async () => {
 const search = () => {
   page.value = 1
   load()
+}
+
+const resetSearch = () => {
+  keyword.value = ''
+  search()
 }
 
 // ---------- 导入导出 ----------
@@ -654,8 +668,25 @@ onMounted(() => {
 .toolbar {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  align-items: center;
+  gap: 10px;
   margin-bottom: 16px;
+}
+.toolbar.actions {
+  border-bottom: none;
+  padding-bottom: 2px;
+  margin-bottom: 4px;
+}
+.toolbar.filters {
+  border-bottom: 1px solid #f2f4f8;
+  padding-bottom: 14px;
+}
+.filter-label {
+  color: #5a6474;
+  margin-right: -2px;
+}
+.flex-1 {
+  flex: 1;
 }
 .pagination {
   margin-top: 16px;

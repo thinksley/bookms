@@ -1,22 +1,28 @@
 <template>
   <div class="page">
-    <div class="toolbar">
+    <div class="toolbar actions">
+      <el-button type="success" :icon="Plus" @click="openBorrow">新增借阅</el-button>
+    </div>
+
+    <div class="toolbar filters">
+      <span class="filter-label">状态</span>
       <el-radio-group v-model="status" @change="search">
         <el-radio-button label="">全部</el-radio-button>
         <el-radio-button label="在借" />
         <el-radio-button label="逾期" />
         <el-radio-button label="已还" />
       </el-radio-group>
+      <span class="filter-label">关键字</span>
       <el-input
         v-model="keyword"
-        placeholder="按书名 / 借阅人搜索"
+        placeholder="书名 / 借阅人"
         clearable
-        style="width: 260px"
+        style="width: 240px"
         @keyup.enter="search"
         @clear="search"
       />
-      <el-button type="primary" @click="search">搜索</el-button>
-      <el-button type="success" @click="openBorrow">新增借阅</el-button>
+      <el-button type="primary" :icon="Search" @click="search">查询</el-button>
+      <el-button type="danger" plain :icon="RefreshLeft" @click="resetSearch">重置</el-button>
     </div>
 
     <el-table v-loading="loading" :data="records" stripe border>
@@ -106,6 +112,7 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import { Plus, Search, RefreshLeft } from '@element-plus/icons-vue'
 import request from '@/api/request'
 
 // ---------- 列表 ----------
@@ -138,6 +145,12 @@ const load = async () => {
 const search = () => {
   page.value = 1
   load()
+}
+
+const resetSearch = () => {
+  status.value = ''
+  keyword.value = ''
+  search()
 }
 
 const statusType = (s) => (s === '逾期' ? 'danger' : s === '已还' ? 'success' : 'primary')
@@ -246,8 +259,23 @@ onMounted(async () => {
 }
 .toolbar {
   display: flex;
-  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
   margin-bottom: 16px;
+}
+.toolbar.actions {
+  border-bottom: none;
+  padding-bottom: 2px;
+  margin-bottom: 4px;
+}
+.toolbar.filters {
+  border-bottom: 1px solid #f2f4f8;
+  padding-bottom: 14px;
+}
+.filter-label {
+  color: #5a6474;
+  margin-right: -2px;
 }
 .pagination {
   margin-top: 16px;

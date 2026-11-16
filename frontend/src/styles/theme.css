@@ -1,0 +1,201 @@
+/* ============ 全局主题：深色侧边栏 + 浅灰内容区 ============ */
+
+:root {
+  --app-sidebar-bg: #2f3a4b;
+  --app-sidebar-deep: #27303f;
+  --app-nav-text: #c3ccda;
+  --app-nav-hover-bg: #3a465a;
+  --app-nav-active-bg: #3d4a60;
+  --app-nav-active-text: #ffb02e;
+  --app-content-bg: #f0f2f5;
+  --app-border: #ebeef5;
+  --app-card-radius: 4px;
+
+  --el-font-size-base: 13px;
+  --el-border-radius-base: 3px;
+  --el-text-color-regular: #4c5566;
+  --el-text-color-primary: #2c3444;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei',
+    'Helvetica Neue', Arial, sans-serif;
+  font-size: 13px;
+  color: #2c3444;
+  background: var(--app-content-bg);
+}
+
+/* ---------- 页面白卡片 ---------- */
+.page {
+  background: #fff;
+  border-radius: var(--app-card-radius);
+  padding: 16px 18px 18px;
+  box-sizing: border-box;
+}
+
+/* ---------- 工具栏 ---------- */
+.toolbar {
+  padding-bottom: 14px;
+  border-bottom: 1px solid #f2f4f8;
+}
+
+.toolbar + .el-table {
+  margin-top: 14px;
+}
+
+/* ---------- 表格 ---------- */
+.el-table {
+  --el-table-header-bg-color: #eef4fb;
+  --el-table-header-text-color: #2c3444;
+  --el-table-row-hover-bg-color: #f4f9ff;
+  --el-table-border-color: #ebeef5;
+  font-size: 13px;
+}
+
+.el-table th.el-table__cell {
+  font-weight: 600;
+  padding: 9px 0;
+}
+
+.el-table td.el-table__cell {
+  padding: 8px 0;
+}
+
+.el-table .cell {
+  line-height: 20px;
+}
+
+/* 表头分组（多级表头） */
+.el-table--group thead th.el-table__cell {
+  background-color: #e9f1fb;
+}
+
+/* ---------- 按钮 ---------- */
+.el-button {
+  font-size: 13px;
+}
+
+.el-button:not(.is-link):not(.is-text) {
+  height: 30px;
+  padding: 0 13px;
+  border-radius: 3px;
+}
+
+.el-button.is-link {
+  font-size: 13px;
+  padding: 0 4px;
+}
+
+/* ---------- 表单控件 ---------- */
+.el-input__wrapper,
+.el-select__wrapper,
+.el-textarea__inner {
+  border-radius: 3px;
+}
+
+.el-form-item__label {
+  color: #5a6474;
+  font-weight: 400;
+}
+
+/* ---------- 卡片 ---------- */
+.el-card {
+  border-radius: var(--app-card-radius);
+  border-color: var(--app-border);
+}
+
+.el-card__header {
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #2c3444;
+}
+
+/* ---------- 分页 ---------- */
+.el-pagination {
+  justify-content: flex-end;
+  margin-top: 16px;
+  font-weight: 400;
+}
+
+.el-pagination .el-pager li,
+.el-pagination .btn-prev,
+.el-pagination .btn-next {
+  border-radius: 3px;
+}
+
+/* ---------- 弹窗 ---------- */
+.el-dialog {
+  border-radius: 4px;
+}
+
+.el-dialog__header {
+  padding: 14px 20px;
+  margin-right: 0;
+  border-bottom: 1px solid var(--app-border);
+  font-weight: 600;
+}
+
+.el-dialog__body {
+  padding: 18px 20px;
+}
+
+.el-dialog__footer {
+  padding: 10px 20px 16px;
+}
+
+/* ---------- 标签页签 ---------- */
+.page-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 26px;
+  padding: 0 8px 0 10px;
+  border-radius: 3px;
+  background: #3d8bfd;
+  color: #fff;
+  font-size: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.page-tab .tab-close {
+  font-size: 11px;
+  opacity: 0.85;
+}
+
+.page-tab .tab-close:hover {
+  opacity: 1;
+}
+
+.page-tab.is-active {
+  background: #3d8bfd;
+}
+
+.page-tab:not(.is-active) {
+  background: #fff;
+  color: #5a6474;
+  border: 1px solid #dcdfe6;
+}
+
+/* 滚动条 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c8cfd9;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}

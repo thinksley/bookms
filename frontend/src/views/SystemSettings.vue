@@ -61,7 +61,15 @@ const save = async () => {
   width: 100%;
 }
 .card {
-  max-width: 680px;
+  max-width: 720px;
+  border: none;
+}
+.card :deep(.el-card__header) {
+  padding-left: 0;
+  border-bottom: 1px solid #f0f2f5;
+}
+.card :deep(.el-card__body) {
+  padding: 18px 0 0;
 }
 .tip {
   margin-left: 12px;

@@ -1,16 +1,21 @@
 <template>
   <div class="page">
-    <div class="toolbar">
+    <div class="toolbar actions">
+      <el-button type="success" :icon="Plus" @click="openAdd">新增用户</el-button>
+    </div>
+
+    <div class="toolbar filters">
+      <span class="filter-label">用户名</span>
       <el-input
         v-model="keyword"
-        placeholder="按用户名搜索"
+        placeholder="请输入用户名"
         clearable
-        style="width: 300px"
+        style="width: 260px"
         @keyup.enter="search"
         @clear="search"
       />
-      <el-button type="primary" @click="search">搜索</el-button>
-      <el-button type="success" @click="openAdd">新增用户</el-button>
+      <el-button type="primary" :icon="Search" @click="search">查询</el-button>
+      <el-button type="danger" plain :icon="RefreshLeft" @click="resetSearch">重置</el-button>
     </div>
 
     <el-table v-loading="loading" :data="users" stripe border>
@@ -71,6 +76,7 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import { Plus, Search, RefreshLeft } from '@element-plus/icons-vue'
 import request from '@/api/request'
 
 // ---------- 列表 ----------
@@ -103,6 +109,11 @@ const load = async () => {
 const search = () => {
   page.value = 1
   load()
+}
+
+const resetSearch = () => {
+  keyword.value = ''
+  search()
 }
 
 // ---------- 新增 / 编辑 ----------
@@ -191,8 +202,23 @@ onMounted(load)
 }
 .toolbar {
   display: flex;
-  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
   margin-bottom: 16px;
+}
+.toolbar.actions {
+  border-bottom: none;
+  padding-bottom: 2px;
+  margin-bottom: 4px;
+}
+.toolbar.filters {
+  border-bottom: 1px solid #f2f4f8;
+  padding-bottom: 14px;
+}
+.filter-label {
+  color: #5a6474;
+  margin-right: -2px;
 }
 .pagination {
   margin-top: 16px;

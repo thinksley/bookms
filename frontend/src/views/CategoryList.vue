@@ -1,7 +1,7 @@
 <template>
   <div class="page">
-    <div class="toolbar">
-      <el-button type="success" @click="openAdd">新增分类</el-button>
+    <div class="toolbar actions">
+      <el-button type="success" :icon="Plus" @click="openAdd">新增分类</el-button>
     </div>
 
     <el-table v-loading="loading" :data="categories" stripe border>
@@ -39,6 +39,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import { Plus } from '@element-plus/icons-vue'
 import request from '@/api/request'
 
 const categories = ref([])

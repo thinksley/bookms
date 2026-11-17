@@ -6,7 +6,6 @@
       <el-button type="warning" :icon="Download" :loading="exporting" @click="exportBooks">
         导出 Excel
       </el-button>
-      <el-button plain :icon="Delete" @click="openRecycleBin">回收站</el-button>
     </div>
 
     <div class="toolbar filters">
@@ -295,23 +294,6 @@
       </div>
     </el-dialog>
 
-    <el-dialog v-model="recycleVisible" title="回收站" width="720px">
-      <el-table v-loading="recycleLoading" :data="deletedBooks" size="small" border>
-        <el-table-column prop="title" label="书名" min-width="140" />
-        <el-table-column prop="author" label="作者" width="100" />
-        <el-table-column prop="isbn" label="ISBN" width="160" />
-        <el-table-column label="删除时间" width="160">
-          <template #default="{ row }">{{ (row.deleted_at || '').replace('T', ' ').slice(0, 19) }}</template>
-        </el-table-column>
-        <el-table-column label="操作" width="140" fixed="right">
-          <template #default="{ row }">
-            <el-button link type="primary" @click="restoreBook(row)">恢复</el-button>
-            <el-button link type="danger" @click="purgeBook(row)">彻底删除</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-    </el-dialog>
-
     <el-dialog v-model="batchCategoryVisible" title="批量改分类" width="420px">
       <el-select
         v-model="batchCategory"
@@ -334,7 +316,7 @@
 <script setup>
 import { ref, reactive, computed, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { Plus, Upload, Download, Delete, Search, RefreshLeft } from '@element-plus/icons-vue'
+import { Plus, Upload, Download, Search, RefreshLeft } from '@element-plus/icons-vue'
 import request from '@/api/request'
 
 // 展开行详情字段：[字段名, 显示名]
@@ -472,43 +454,6 @@ const lookupIsbn = async () => {
   } finally {
     lookingUp.value = false
   }
-}
-
-// ---------- 回收站 ----------
-const recycleVisible = ref(false)
-const recycleLoading = ref(false)
-const deletedBooks = ref([])
-
-const openRecycleBin = async () => {
-  recycleVisible.value = true
-  recycleLoading.value = true
-  try {
-    deletedBooks.value = await request.get('/books/recycle-bin')
-  } finally {
-    recycleLoading.value = false
-  }
-}
-
-const restoreBook = async (row) => {
-  await request.post(`/books/${row.id}/restore`)
-  ElMessage.success(`《${row.title}》已恢复`)
-  openRecycleBin()
-  load()
-}
-
-const purgeBook = async (row) => {
-  try {
-    await ElMessageBox.confirm(
-      `彻底删除《${row.title}》后不可恢复，确定吗？`,
-      '彻底删除',
-      { type: 'error', confirmButtonText: '彻底删除', cancelButtonText: '取消' }
-    )
-  } catch {
-    return
-  }
-  await request.delete(`/books/${row.id}/purge`)
-  ElMessage.success('已彻底删除')
-  openRecycleBin()
 }
 
 // ---------- 批量操作 ----------
@@ -664,29 +609,6 @@ onMounted(() => {
 <style scoped>
 .page {
   width: 100%;
-}
-.toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 16px;
-}
-.toolbar.actions {
-  border-bottom: none;
-  padding-bottom: 2px;
-  margin-bottom: 4px;
-}
-.toolbar.filters {
-  border-bottom: 1px solid #f2f4f8;
-  padding-bottom: 14px;
-}
-.filter-label {
-  color: #5a6474;
-  margin-right: -2px;
-}
-.flex-1 {
-  flex: 1;
 }
 .pagination {
   margin-top: 16px;

@@ -42,8 +42,33 @@ body {
 
 /* ---------- 工具栏 ---------- */
 .toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
   padding-bottom: 14px;
   border-bottom: 1px solid #f2f4f8;
+}
+
+/* 两段式工具栏：上排动作区（无下边框） + 下排筛选区 */
+.toolbar.actions {
+  border-bottom: none;
+  padding-bottom: 2px;
+  margin-bottom: 4px;
+}
+
+.toolbar.filters {
+  border-bottom: 1px solid #f2f4f8;
+  padding-bottom: 14px;
+}
+
+.filter-label {
+  color: #5a6474;
+  margin-right: -2px;
+}
+
+.flex-1 {
+  flex: 1;
 }
 
 .toolbar + .el-table {

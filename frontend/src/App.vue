@@ -28,6 +28,7 @@
             </template>
             <el-menu-item index="/books">图书管理</el-menu-item>
             <el-menu-item index="/categories">分类管理</el-menu-item>
+            <el-menu-item index="/recycle">回收站</el-menu-item>
           </el-sub-menu>
 
           <el-sub-menu index="circulation">
@@ -151,6 +152,7 @@ const PAGE_META = {
   '/dashboard': { group: '', title: '数据看板' },
   '/books': { group: '馆藏管理', title: '图书管理' },
   '/categories': { group: '馆藏管理', title: '分类管理' },
+  '/recycle': { group: '馆藏管理', title: '回收站' },
   '/borrows': { group: '流通管理', title: '借阅管理' },
   '/readers': { group: '流通管理', title: '读者管理' },
   '/users': { group: '系统管理', title: '用户管理' },

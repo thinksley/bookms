@@ -29,6 +29,11 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
+    path: '/recycle',
+    component: () => import('@/views/RecycleBin.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
     path: '/users',
     component: () => import('@/views/UserList.vue'),
     meta: { requiresAuth: true },
